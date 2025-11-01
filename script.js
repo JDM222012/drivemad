@@ -1,12 +1,12 @@
-// script.js – builds a Drive Mad–style overlay when loaded
+// script.js – Drive Mad iframe launcher
 (function () {
-  console.log("Drive Mad script.js loaded!");
+  console.log("Drive Mad script.js loaded from jsDelivr");
 
-  // remove any existing overlay
+  // Remove any old overlay if present
   const old = document.getElementById("drivemad-wrapper");
   if (old) old.remove();
 
-  // outer wrapper
+  // Wrapper overlay
   const wrap = document.createElement("div");
   wrap.id = "drivemad-wrapper";
   Object.assign(wrap.style, {
@@ -15,11 +15,11 @@
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    background: "rgba(0,0,0,0.8)",
+    background: "rgba(0, 0, 0, 0.8)",
     zIndex: "999999",
   });
 
-  // game frame box
+  // Game frame
   const frame = document.createElement("div");
   Object.assign(frame.style, {
     position: "relative",
@@ -32,9 +32,9 @@
     boxShadow: "0 0 25px rgba(255,255,255,0.4)",
   });
 
-  // header
+  // Title
   const title = document.createElement("h2");
-  title.textContent = "Drive Mad – Demo Frame";
+  title.textContent = "Drive Mad – JSDelivr Frame";
   Object.assign(title.style, {
     margin: "10px 0",
     textAlign: "center",
@@ -43,9 +43,9 @@
   });
   frame.appendChild(title);
 
-  // placeholder iframe (replace with real game HTML)
+  // Game iframe
   const iframe = document.createElement("iframe");
-  iframe.src = "https://crossyroadonline.github.io/play/drive-mad.html"; // ← change this
+  iframe.src = "https://crossyroadonline.github.io/play/drive-mad.html"; // Working game
   Object.assign(iframe.style, {
     width: "100%",
     height: "calc(100% - 50px)",
@@ -53,7 +53,7 @@
   });
   frame.appendChild(iframe);
 
-  // close button
+  // Close button
   const close = document.createElement("button");
   close.textContent = "✖ Close";
   Object.assign(close.style, {
@@ -66,11 +66,11 @@
     borderRadius: "6px",
     padding: "6px 10px",
     cursor: "pointer",
+    fontSize: "16px",
   });
   close.onclick = () => wrap.remove();
   frame.appendChild(close);
 
-  // combine and attach
   wrap.appendChild(frame);
   document.body.appendChild(wrap);
 })();
