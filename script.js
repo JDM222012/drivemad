@@ -1,76 +1,48 @@
-// script.js – Drive Mad iframe launcher
-(function () {
-  console.log("Drive Mad script.js loaded from jsDelivr");
+(function() {
+// Prevent duplicate iframes
+if (document.getElementById('drivemad-frame')) return;
 
-  // Remove any old overlay if present
-  const old = document.getElementById("drivemad-wrapper");
-  if (old) old.remove();
+// Create iframe
+const iframe = document.createElement('iframe');
+iframe.id = 'drivemad-frame';
+iframe.src = '[https://u3d.degames.org/35](https://u3d.degames.org/35)';
 
-  // Wrapper overlay
-  const wrap = document.createElement("div");
-  wrap.id = "drivemad-wrapper";
-  Object.assign(wrap.style, {
-    position: "fixed",
-    inset: "0",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    background: "rgba(0, 0, 0, 0.8)",
-    zIndex: "999999",
-  });
+// Style iframe as fullscreen overlay
+Object.assign(iframe.style, {
+position: 'fixed',
+top: '0',
+left: '0',
+width: '100%',
+height: '100%',
+border: 'none',
+margin: '0',
+padding: '0',
+zIndex: '999999',
+background: '#000'
+});
 
-  // Game frame
-  const frame = document.createElement("div");
-  Object.assign(frame.style, {
-    position: "relative",
-    width: "80vw",
-    height: "80vh",
-    background: "#111",
-    border: "3px solid #fff",
-    borderRadius: "12px",
-    overflow: "hidden",
-    boxShadow: "0 0 25px rgba(255,255,255,0.4)",
-  });
+// Add a simple click-to-close button
+const closeBtn = document.createElement('button');
+closeBtn.textContent = '✖ Close Drive Mad';
+Object.assign(closeBtn.style, {
+position: 'fixed',
+top: '10px',
+right: '10px',
+zIndex: '1000000',
+padding: '6px 12px',
+fontSize: '16px',
+background: '#c0392b',
+color: '#fff',
+border: 'none',
+borderRadius: '6px',
+cursor: 'pointer'
+});
+closeBtn.addEventListener('click', () => {
+iframe.remove();
+closeBtn.remove();
+});
 
-  // Title
-  const title = document.createElement("h2");
-  title.textContent = "Drive Mad – JSDelivr Frame";
-  Object.assign(title.style, {
-    margin: "10px 0",
-    textAlign: "center",
-    color: "#fff",
-    fontFamily: "sans-serif",
-  });
-  frame.appendChild(title);
-
-  // Game iframe
-  const iframe = document.createElement("iframe");
-  iframe.src = "https://cdn.jsdelivr.net/gh/genizy/dmad-poki@49b5ab6b987f5f3be58f9dae59c92e8fc1aab9b0/index.html"; // Working game
-  Object.assign(iframe.style, {
-    width: "100%",
-    height: "calc(100% - 50px)",
-    border: "none",
-  });
-  frame.appendChild(iframe);
-
-  // Close button
-  const close = document.createElement("button");
-  close.textContent = "✖ Close";
-  Object.assign(close.style, {
-    position: "absolute",
-    top: "8px",
-    right: "12px",
-    background: "crimson",
-    color: "#fff",
-    border: "none",
-    borderRadius: "6px",
-    padding: "6px 10px",
-    cursor: "pointer",
-    fontSize: "16px",
-  });
-  close.onclick = () => wrap.remove();
-  frame.appendChild(close);
-
-  wrap.appendChild(frame);
-  document.body.appendChild(wrap);
+// Append to body
+document.body.appendChild(iframe);
+document.body.appendChild(closeBtn);
 })();
